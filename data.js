@@ -13,6 +13,28 @@ let users = [
   },
 ];
 
+let cars = [
+  {
+    id: 0,
+    make: "Subaru",
+    model: "Outback",
+    color: "silver",
+  },
+  {
+    id: 1,
+    make: "Subaru",
+    model: "Forester",
+    color: "blue",
+  },
+  {
+    id: 2,
+    make: "Subaru",
+    model: "CRZ",
+    color: "red",
+  },
+];
+
 module.exports = {
   users,
+  cars,
 };
