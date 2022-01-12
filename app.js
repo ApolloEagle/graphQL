@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const { ApolloServer, gql } = require("apollo-server-express");
-const { start } = require("repl");
 
 const typeDefs = gql`
   type Query {
