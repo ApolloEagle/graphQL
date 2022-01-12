@@ -19,18 +19,21 @@ let cars = [
     make: "Subaru",
     model: "Outback",
     color: "silver",
+    ownedBy: 0,
   },
   {
     id: 1,
     make: "Subaru",
     model: "Forester",
     color: "blue",
+    ownedBy: 1,
   },
   {
     id: 2,
     make: "Subaru",
     model: "CRZ",
     color: "red",
+    ownedBy: 2,
   },
 ];
 
