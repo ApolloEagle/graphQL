@@ -1,4 +1,3 @@
-const sequelize = require("sequelize");
 const car = (sequelize, DataTypes) => {
   const Car = sequelize.define("car", {
     make: {
@@ -13,7 +12,7 @@ const car = (sequelize, DataTypes) => {
   });
 
   Car.associate = (models) => {
-    Car.belonsTo(models.User);
+    Car.belongsTo(models.User);
   };
 
   return Car;
