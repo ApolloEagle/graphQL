@@ -2,14 +2,17 @@ let users = [
   {
     id: 0,
     name: "Jimmy",
+    cars: [0, 1],
   },
   {
     id: 1,
     name: "Ferguson",
+    cars: [],
   },
   {
     id: 2,
     name: "Finnigan",
+    cars: [2],
   },
 ];
 
