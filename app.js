@@ -1,116 +1,20 @@
 const express = require("express");
 const app = express();
-const { ApolloServer, gql } = require("apollo-server-express");
-const { users } = require("./data");
-const { cars } = require("./data");
-const me = users[0];
-const typeDefs = gql`
-  type Query {
-    users: [User]
-    user(id: Int!): User
-    me: User
+const { ApolloServer } = require("apollo-server-express");
+const models = require("./models");
+const typeDefs = require("./typeDefs");
+const resolvers = require("./resolvers");
 
-    cars: [Car]
-    car(id: Int!): Car
-  }
+const me = models.users[0];
 
-  type User {
-    id: Int!
-    name: String!
-    cars: [Car]
-  }
-
-  type Car {
-    id: Int!
-    make: String!
-    model: String!
-    color: String!
-    owner: User!
-  }
-
-  type Mutation {
-    createUser(id: Int!, name: String!): User!
-    deleteUser(id: Int!): Boolean
-    createCar(id: Int!, make: String!, model: String!, color: String!): Car!
-    deleteCar(id: Int!): Boolean
-  }
-`;
-const resolvers = {
-  Query: {
-    users: () => users,
-    user: (parent, { id }) => {
-      const user = users.filter((user) => user.id === id);
-      return user[0];
-    },
-    cars: () => cars,
-    car: (parent, { id }) => {
-      const car = cars.filter((car) => car.id === id);
-      return car[0];
-    },
-    me: () => me,
-  },
-  Car: {
-    owner: (parent) => users[parent.ownedBy],
-  },
-  User: {
-    cars: (parent) => parent.cars.map((carId) => cars[carId]),
-  },
-  Mutation: {
-    createUser: (parent, { id, name }) => {
-      const user = {
-        id,
-        name,
-      };
-      users.push(user);
-      return user;
-    },
-    deleteUser: (parent, { id }) => {
-      let exists = false;
-      users.filter((user) => {
-        if (user.id === id) {
-          exists = true;
-        } else {
-          return user;
-        }
-      });
-      if (exists) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    createCar: (parent, { id, make, model, color }) => {
-      let car = {
-        id,
-        make,
-        model,
-        color,
-      };
-      cars.push(car);
-      return car;
-    },
-    deleteCar: (parent, { id }) => {
-      let exists = false;
-      cars.filter((car) => {
-        if (car.id === id) {
-          exists = true;
-        } else {
-          return car;
-        }
-      });
-      if (exists) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-  },
-};
-
-const startApolloServer = async (typeDefs, resolvers) => {
+const startApolloServer = async (models, typeDefs, resolvers) => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    context: {
+      models,
+      me,
+    },
   });
   await server.start();
   server.applyMiddleware({ app });
@@ -120,4 +24,4 @@ const startApolloServer = async (typeDefs, resolvers) => {
   );
 };
 
-startApolloServer(typeDefs, resolvers);
+startApolloServer(models, typeDefs, resolvers);
