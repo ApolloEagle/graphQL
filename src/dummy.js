@@ -56,6 +56,6 @@ sequelize.sync({ force: true }).then(async () => {
     await createData();
     process.exit();
   } catch (error) {
-    console.log(error);
+    console.log("Data Loading Error: ", error);
   }
 });

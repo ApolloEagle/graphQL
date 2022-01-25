@@ -12,4 +12,4 @@ Object.keys(models).forEach((key) => {
   }
 });
 
-module.export = models;
+module.exports = models;
