@@ -1,15 +1,13 @@
-const user = (sequelize, DataTypes) => {
-  const User = sequelize.define("user", {
-    name: {
-      type: DataTypes.STRING,
-    },
-  });
+const { sequelize, DataTypes } = require("./db");
 
-  User.associate = (models) => {
-    User.hasMany(models.Car, { onDelete: "CASCADE" });
-  };
+const User = sequelize.define("User", {
+  name: {
+    type: DataTypes.STRING,
+  },
+});
 
-  return User;
+User.associate = (models) => {
+  User.hasMany(models.Car, { onDelete: "CASCADE" });
 };
 
-module.exports = user;
+module.exports = User;
