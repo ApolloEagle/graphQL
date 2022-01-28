@@ -27,6 +27,20 @@ const resolvers = {
         },
       });
     },
+    register: async (parent, { name, username, password }, { models }) => {
+      const user = {
+        name,
+        username,
+        password,
+      };
+      const registeredUser = await models.User.create(user);
+      try {
+        return typeof registeredUser.id === "number" ? true : false;
+      } catch (error) {
+        console.log("Register user error", error);
+        return false;
+      }
+    },
   },
 };
 
