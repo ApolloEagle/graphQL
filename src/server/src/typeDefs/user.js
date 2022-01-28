@@ -14,10 +14,15 @@ const typeDefs = gql`
     cars: [Car]
   }
 
+  type Token {
+    token: String!
+  }
+
   extend type Mutation {
     createUser(name: String!): User!
     deleteUser(id: Int!): Boolean
     register(name: String!, username: String!, password: String!): Boolean!
+    login(username: String!, password: String!): Token!
   }
 `;
 

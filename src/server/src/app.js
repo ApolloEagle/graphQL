@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const { ApolloServer } = require("apollo-server-express");
@@ -12,6 +13,7 @@ const startApolloServer = async (models, typeDefs, resolvers) => {
     resolvers,
     context: {
       models,
+      secret: process.env.JWT_SECRET,
     },
   });
   await server.start();
